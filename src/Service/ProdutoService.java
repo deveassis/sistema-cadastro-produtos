@@ -13,7 +13,7 @@ public class ProdutoService {
     public void createProduto(int id, String nome, Double preco, int quantidade){
         Produto novoProduto = new Produto(id, nome, preco, quantidade);
         repository.store(novoProduto);
-        System.out.println("Produto cadastrado com sucesso");
+        System.out.println("Produto cadastrado com sucesso: " + novoProduto.toString());
     }
 
     public void listarProdutos(){
@@ -22,9 +22,17 @@ public class ProdutoService {
         }
     }
 
-    public void atualizarProdutoId(int id){
-        repository.findById(id);
-        System.out.println("passei aqui");
+    public void atualizarProdutoPorid(int id, String nome, Double preco, int quantidade){
+        repository.updateById(id, nome, preco, quantidade);
+        System.out.println("O produto cod :" + id + " foi atualizado com sucesso");
+    }
+
+    public void buscarProdutoPorNome(String nome){
+        repository.searchByName(nome);
+    }
+
+    public void removerPorId(int id){
+        repository.destroyById(id);
     }
 
 }
