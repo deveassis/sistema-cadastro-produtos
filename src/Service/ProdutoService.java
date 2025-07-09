@@ -1,17 +1,19 @@
 package Service;
-
+import java.util.UUID;
 import Model.Produto;
 import Repository.ProdutoRepository;
 public class ProdutoService {
 
+    private int contadorId = 1;
     private ProdutoRepository repository;
 
     public ProdutoService() {
         this.repository = new ProdutoRepository();
     }
 
-    public void createProduto(int id, String nome, Double preco, int quantidade){
-        Produto novoProduto = new Produto(id, nome, preco, quantidade);
+    public void createProduto(String nome, Double preco, int quantidade){
+
+        Produto novoProduto = new Produto(contadorId++, nome, preco, quantidade);
         repository.store(novoProduto);
         System.out.println("Produto cadastrado com sucesso: " + novoProduto.toString());
     }

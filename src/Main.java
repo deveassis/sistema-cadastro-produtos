@@ -2,39 +2,35 @@ import Model.Produto;
 import Repository.ProdutoRepository;
 import Service.ProdutoService;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
       ProdutoService service = new ProdutoService();
-
       // Cadastrar Produtos
         System.out.println("--------------------------");
         System.out.println("Cadastrando produtos");
-      service.createProduto(1, "Chocolate", 12.50, 4);
-      service.createProduto(2, "Doritos", 12.50, 2);
-      service.createProduto(3, "Ruffles", 11.50, 1);
-        System.out.println("--------------------------");
-        System.out.println("Atualizando produto por ID");
 
-      // Atualizar produto pelo id
-      service.atualizarProdutoPorid(2, "Lays", 10.89, 1);
-        System.out.println("--------------------------");
+      Scanner myProduct = new Scanner(System.in);
+      myProduct.useLocale(Locale.US); // <- aceita ponto decimal como 12.30
 
-        System.out.println("Removendo produto por id");
 
-        //Remover pelo id
-      service.removerPorId(1);
+      ArrayList<String> listaOpcoes = new ArrayList<String>();
 
-        System.out.println("--------------------------");
-        System.out.println("Listando produtos");
+      System.out.println("Nome: ");
+      String name = myProduct.nextLine();
 
-      //Listar Produto
-      service.listarProdutos();
+      System.out.println("Preço: ");
+      double preco = myProduct.nextDouble();
 
-        System.out.println("--------------------------");
-        System.out.println("Buscando produto por nome");
+      System.out.println("Quantidade: ");
+      int quantidade = myProduct.nextInt();
 
-      //Buscar produto pelo nome
-      service.buscarProdutoPorNome("Doritos");
+      service.createProduto(name, preco, quantidade);
+
 
     }
 }
