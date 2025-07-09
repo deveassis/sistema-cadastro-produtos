@@ -1,5 +1,6 @@
 package Service;
-import java.util.UUID;
+import java.util.*;
+
 import Model.Produto;
 import Repository.ProdutoRepository;
 public class ProdutoService {
@@ -11,26 +12,70 @@ public class ProdutoService {
         this.repository = new ProdutoRepository();
     }
 
-    public void createProduto(String nome, Double preco, int quantidade){
+    public void showMenu(){
+        List<String> menu = new ArrayList<>();
+        menu.add("1- Cadastrar Produto");
+        menu.add("2- Exibir produtos cadastrados");
+        menu.add("3- Atualizar Produto");
+        menu.add("4- Pesquisar produto por nome");
+        System.out.println("Digite o numero de uma das opcoes abaixo");
+        for(int i = 0; i < menu.size(); i++){
+            System.out.println(menu.get(i));
+        }
+    }
 
-        Produto novoProduto = new Produto(contadorId++, nome, preco, quantidade);
+    public void createProduto(){
+        System.out.println("=========================================");
+        System.out.println("Vamos cadastrar um novo produto!");
+        Scanner myProduct = new Scanner(System.in);
+        myProduct.useLocale(Locale.US);
+        System.out.println("Informe o nome do produto: ");
+        String name = myProduct.nextLine();
+        System.out.println("Informe o preco do produto: ");
+        double preco = myProduct.nextDouble();
+        System.out.println("Informe a quantidade de itens: ");
+        int quantidade = myProduct.nextInt();
+        Produto novoProduto = new Produto(contadorId++, name, preco, quantidade);
         repository.store(novoProduto);
         System.out.println("Produto cadastrado com sucesso: " + novoProduto.toString());
     }
 
     public void listarProdutos(){
-        for(Produto p: repository.index()){
-            System.out.println(p);
+        System.out.println("=========================================");
+        System.out.println("Verificando lista de produtos...");
+        if(!repository.index().isEmpty()){
+            for(Produto p: repository.index()){
+                System.out.println(p);
+            }
         }
+
     }
 
-    public void atualizarProdutoPorid(int id, String nome, Double preco, int quantidade){
-        repository.updateById(id, nome, preco, quantidade);
-        System.out.println("O produto cod :" + id + " foi atualizado com sucesso");
+    public void atualizarProdutoPorid(){
+        System.out.println("=========================================");
+        System.out.println("Informe abaixo o nome do produto que voce deseja atualizar: ");
+        Scanner updateProduct = new Scanner(System.in);
+        int  searchId = updateProduct.nextInt();
+        System.out.println("Ok, agora informe o novo nome do produto: ");
+        String nameProduct = updateProduct.nextLine();
+        System.out.println("Ok, agora informe o novo preco: ");
+        Double priceProduct = updateProduct.nextDouble();
+        System.out.println("Ok, agora informe a quantidade: ");
+        int quantityProduct = updateProduct.nextInt();
+        repository.updateById(searchId, nameProduct, priceProduct, quantityProduct);
+        System.out.println("O produto cod :" + searchId + " foi atualizado com sucesso");
     }
 
-    public void buscarProdutoPorNome(String nome){
-        repository.searchByName(nome);
+    public void buscarProdutoPorNome(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("=========================================");
+        System.out.println("Informe abaixo o nome do produto que voce deseja consultar estoque: ");
+        String name = scanner.nextLine();
+        if(!name.isEmpty()){
+            repository.searchByName(name);
+        }else{
+            System.out.println("Voce nao informou o nome do produto, tente novamente");
+        }
     }
 
     public void removerPorId(int id){

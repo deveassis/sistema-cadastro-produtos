@@ -45,6 +45,9 @@ public class ProdutoRepository {
     }
 
     public List<Produto> index(){
+        if(produtos.isEmpty()){
+            System.out.println("Nao ha produtos cadastrados, registre um produto.");
+        }
         return produtos;
     }
 }
