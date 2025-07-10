@@ -6,6 +6,8 @@ public class Main {
       ProdutoService service = new ProdutoService();
       Scanner scanner = new Scanner(System.in);
       int op;
+
+
         System.out.println("Iniciando os facilitadores");
         System.out.println("Digite uma das opcoes abaixo");
         System.out.println("=========================================");
