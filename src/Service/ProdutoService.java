@@ -1,4 +1,5 @@
 package Service;
+import java.sql.SQLException;
 import java.util.*;
 
 import Model.Produto;
@@ -24,7 +25,7 @@ public class ProdutoService {
         }
     }
 
-    public void createProduto(){
+    public void createProduto() throws SQLException {
         System.out.println("=========================================");
         System.out.println("Vamos cadastrar um novo produto!");
         Scanner myProduct = new Scanner(System.in);
@@ -35,9 +36,8 @@ public class ProdutoService {
         double preco = myProduct.nextDouble();
         System.out.println("Informe a quantidade de itens: ");
         int quantidade = myProduct.nextInt();
-        Produto novoProduto = new Produto(contadorId++, name, preco, quantidade);
-        repository.store(novoProduto);
-        System.out.println("Produto cadastrado com sucesso: " + novoProduto.toString());
+        repository.store(name, preco, quantidade);
+        System.out.println("Produto cadastrado com sucesso: ");
     }
 
     public void listarProdutos(){

@@ -1,8 +1,10 @@
 import Service.ProdutoService;
+
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
       ProdutoService service = new ProdutoService();
       Scanner scanner = new Scanner(System.in);
       int op;
