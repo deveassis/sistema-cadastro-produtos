@@ -1,5 +1,7 @@
 package Repository;
 import Model.Produto;
+
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -60,13 +62,21 @@ public class ProdutoRepository {
     }
 
     public List<Produto> index(){
-        if(produtos.isEmpty()){
-            System.out.println("Nao ha produtos cadastrados, registre um produto.");
-        }
+
         String sql = "SELECT * FROM produtos";
         try(Connection conn = ConexaoBanco.getConexao()){
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+                int id = rs.getInt("id");
+                String nome = rs.getString("nome");
+                Double preco = rs.getDouble("preco");
+                int quantidade = rs.getInt("quantidade");
+                System.out.println("Id: " +id + ", " + nome + ", " +  preco + "," + quantidade + " ,");
+            }
+            if(produtos.isEmpty()){
+                System.out.println("Nao ha produtos cadastrados, registre um produto.");
+            }
         }catch(SQLException e){
 
         }
