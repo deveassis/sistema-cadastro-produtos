@@ -55,15 +55,14 @@ public class ProdutoService {
         System.out.println("=========================================");
         System.out.println("Informe abaixo o nome do produto que voce deseja atualizar: ");
         Scanner updateProduct = new Scanner(System.in);
-        int  searchId = updateProduct.nextInt();
+        String  searcheName = updateProduct.nextLine();
         System.out.println("Ok, agora informe o novo nome do produto: ");
         String nameProduct = updateProduct.nextLine();
         System.out.println("Ok, agora informe o novo preco: ");
         Double priceProduct = updateProduct.nextDouble();
         System.out.println("Ok, agora informe a quantidade: ");
         int quantityProduct = updateProduct.nextInt();
-        repository.updateById(searchId, nameProduct, priceProduct, quantityProduct);
-        System.out.println("O produto cod :" + searchId + " foi atualizado com sucesso");
+        repository.updateById(searcheName);
     }
 
     public void buscarProdutoPorNome(){

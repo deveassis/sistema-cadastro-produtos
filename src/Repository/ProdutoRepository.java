@@ -1,7 +1,6 @@
 package Repository;
 import Model.Produto;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -29,17 +28,24 @@ public class ProdutoRepository {
        }
     }
 
-    public void updateById(int id, String nome, Double preco, int quantidade){
-        for(Produto p: produtos){
-            if(p.getId() == id){
-                System.out.println("O produto :" + p.toString());
+    public void updateById(String nome){
+        String sql = "SELECT * FROM produtos WHERE nome = ?";
+        try(Connection conn = ConexaoBanco.getConexao()){
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, nome);
+            ResultSet response = stmt.executeQuery();
 
-                p.setNome(nome);
-                p.setPreco(preco);
-                p.setQuantidade(quantidade);
-                System.out.println("Passou a ser: " + p.toString());
-
+            while(response.next()){
+                int idUpdate = response.getInt("id");
+                String nomeUpdate = response.getString("nome");
+                Double precoUpdate = response.getDouble("preco");
+                int quantidadeUpdate = response.getInt("quantidade");
+                System.out.println("Dados atuais: " + idUpdate + "-" + nomeUpdate + "-" + precoUpdate + "-" + quantidadeUpdate);
             }
+
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
